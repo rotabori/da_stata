@@ -26,7 +26,7 @@
 /*GRAPHS*/
 
 /*BAR*/
-    graph bar (mean) var1 , over(id, sort(1) descending label(angle(25))) blabel(bar, position(outside) format(%5.1f)) subtitle(Celular) ytitle(Mbps) name(celular_mean)
+    graph bar (mean) var1 , over(id, sort(1) descending label(angle(25))) blabel(bar, position(outside) format(%5.1f)) ytitle(Título) subtitle(Sub-título) name(nombre)
 
     graph bar (mean) wifi
         ,
