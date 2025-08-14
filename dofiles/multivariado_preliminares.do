@@ -42,6 +42,7 @@
 
     graph box ad_price_mill, over(car_fuel_num)
 
+    sum ad_price_mill
     hist ad_price_mill, percent width(5) xsize(5) ytitle("") name(hist, replace)
     graph hbox ad_price_mill, ysize(2) xsize(5) name(hbox, replace)
         graph combine hist hbox, cols(1)
