@@ -77,7 +77,7 @@
     cluster kmeans var1, k(#) name(var1_kmeans);
     /*K-MEANS*/;
 
-    cluster kmedians var1, k(#) name(var1_kmeans);
+    cluster kmedians var1, k(#) name(var1_kmedians);
     /*K-MEDIANS*/;
 
 ********************************************************************;

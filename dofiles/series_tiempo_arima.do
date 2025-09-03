@@ -110,8 +110,8 @@
     tsline y1*, name(y1_tsline, replace);
     tsline y2*, name(y2_tsline, replace);
 
-    graph twoway (scatter y1 y1a) (lfit y1 y1a), ytitle(y1) xtitle(y1a) title(y1 y1a) legend(cols(1)) name(y1_scatter, replace);
-    graph twoway (scatter y2 y2a) (lfit y2 y2a), ytitle(y2) xtitle(y2a) title(y2 y2a) legend(cols(1)) name(y2_scatter, replace);
+    graph twoway (scatter y1 y1a, ) (lfit y1 y1a), ytitle(y1) xtitle(y1a) title(y1 y1a) legend(rows(1) pos(6)) name(y1_scatter, replace);
+    graph twoway (scatter y2 y2a) (lfit y2 y2a), ytitle(y2) xtitle(y2a) title(y2 y2a) legend(rows(1) pos(6)) name(y2_scatter, replace);
 
     graph combine y1_tsline y1_scatter, title(y1 y1a) cols(1) name(y1, replace);
     graph combine y2_tsline y2_scatter, title(y2 y2a) cols(1) name(y2, replace);
@@ -158,9 +158,9 @@
     *** #49 ** GRAFICAS;
     *********************************************************************;
 
-        tsline y3* y4*, name(y3y4_tsline, replace) xsize(10);
-        graph twoway (scatter y3 y3a) (lfit y3 y3a), ytitle(y3) xtitle(y3a) title(y3 y3a) legend(cols(1)) name(y3_scatter, replace);
-        graph twoway (scatter y4 y4a) (lfit y4 y4a), ytitle(y4) xtitle(y4a) title(y4 y4a) legend(cols(1)) name(y4_scatter, replace);
+        twoway (tsline y3*, yscale(range(-20 200))) (tsline y4*, yaxis(2)), legend(rows(1) pos(6)) name(y3y4_tsline, replace) xsize(10);
+        graph twoway (scatter y3 y3a) (lfit y3 y3a), ytitle(y3) xtitle(y3a) title(y3 y3a) legend(rows(1) pos(6)) name(y3_scatter, replace);
+        graph twoway (scatter y4 y4a) (lfit y4 y4a), ytitle(y4) xtitle(y4a) title(y4 y4a) legend(rows(1) pos(6)) name(y4_scatter, replace);
             graph combine y3_scatter y4_scatter, name(y3y4_scatter, replace) rows(1);
             graph combine y3y4_tsline y3y4_scatter, title(y3 y3a / y4 y4a) cols(1) ysize(6) iscale(*.7) name(y3y4, replace);
                 graph close y3y4_tsline y3_scatter y4_scatter y3y4_scatter;
@@ -205,9 +205,9 @@
     *** #69 ** GRAFICAS;
     *********************************************************************;
 
-        tsline y5* y6*, name(y5y6_tsline, replace) xsize(10);
-        graph twoway (scatter y5 y5a) (lfit y5 y5a), ytitle(y5) xtitle(y5a) title(y5 y5a) legend(cols(1)) name(y5_scatter, replace);
-        graph twoway (scatter y6 y6a) (lfit y6 y6a), ytitle(y6) xtitle(y6a) title(y6 y6a) legend(cols(1)) name(y6_scatter, replace);
+        twoway (tsline y5*, yscale(range(-20 200))) (tsline y6*, yaxis(2)), legend(rows(1) pos(6)) name(y5y6_tsline, replace) xsize(10);
+        graph twoway (scatter y5 y5a) (lfit y5 y5a), ytitle(y5) xtitle(y5a) title(y5 y5a) legend(rows(1) pos(6)) name(y5_scatter, replace);
+        graph twoway (scatter y6 y6a) (lfit y6 y6a), ytitle(y6) xtitle(y6a) title(y6 y6a) legend(rows(1) pos(6)) name(y6_scatter, replace);
             graph combine y5_scatter y6_scatter, name(y5y6_scatter, replace) rows(1);
             graph combine y5y6_tsline y5y6_scatter, title(y5 y5a / y6 y6a) cols(1) ysize(6) iscale(*.7) name(y5y6, replace);
                 graph close y5y6_tsline y5_scatter y6_scatter y5y6_scatter;

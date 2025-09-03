@@ -131,7 +131,7 @@
     ologit apply;
 
         /*Pr(y=1)*/;
-            display logistic(_b[/cut1]);
+            display logistic(_b[/cut1]) - 0;
 
         /*Pr(y=2)*/;
             display logistic(_b[/cut2]) - logistic(_b[/cut1]);
@@ -146,10 +146,10 @@
         lincom 0 - _b[/cut1];
 
         /*CUT1*/;
-        lincom _b[/cut1] - _b[/cut1];
+        lincom _b[/cut1] - _b[/cut2];
 
         /*CUT2*/;
-        lincom _b[/cut2] - _b[/cut1];
+        lincom _b[/cut2] - 1;
 
 **** #90.9.9 ** GOOD BYE;
 *

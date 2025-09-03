@@ -102,9 +102,26 @@
 
     generate y = rnormal()
     generate x1 = rnormal() + 2 * y
+    generate cons = 1
+    sum y cons x1
+
+    graph matrix y x1, half
+
+    mkmat cons x1, matrix(x)
+    mkmat y, matrix(y)
+    matrix b = inv(x'*x)*(x'*y)
+    matrix list b
+
+    reg y x1
+
+    clear
+    set obs 40
+
+    generate y = rnormal()
+    generate x1 = rnormal() + 2 * y
     generate x2 = rnormal() - 1 * y
     generate cons = 1
-    sum y x1 x2
+    sum y cons x1 x2
 
     graph matrix y x1 x2, half
 

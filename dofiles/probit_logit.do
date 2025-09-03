@@ -191,7 +191,7 @@
 
     sum vehiculo genero ingreso_mill ahorro familia_tamano
 
-    reg vehiculo i.genero ingreso_mill
+    reg vehiculo ingreso_mill
         predict lpm_xb, xb
         twoway connected lpm_xb ingreso_mill, yline(1) sort
 

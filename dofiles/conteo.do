@@ -25,7 +25,7 @@
 
 ** #10.1 ** EXECUTE DATA IN;
 
-    use http://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202010_old.dta;
+    use https://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202010_old.dta;
 
 ********************************************************************;
 ** #20 ** DATA VISUALIZATION;
@@ -117,9 +117,10 @@
 
         margins , dydx(i.genero_num) predict(pr(0)) predict(pr(1)) predict(pr(2)) predict(pr(3)) predict(pr(4))
                                      predict(pr(5)) predict(pr(6)) predict(pr(7)) predict(pr(8)) predict(pr(9));
-            marginsplot, xlabel(,angle(90));
+            marginsplot, xlabel(,angle(90)) yline(0);
 
     poisson zapatos i.genero_num edad;
+        margins i.genero_num, atmeans;
         margins i.genero_num, at(edad=(17(1)27));
             marginsplot, yline(3 3.89);
 
