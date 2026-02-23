@@ -23,26 +23,52 @@
 ********************************************************************;
 
 # delimit ;
-    twoway  function z = normalden(x), range(-4 4) xline(0)
-            xlabel(-2.57 -1.96 -1.64 -1.43 -1.28 2.57 1.96 1.64 1.43 1.28, angle(70) labsize(small))
+    twoway  function z = normalden(x), range(-4 4) color(green)
+            xlabel(-2.57 -1.96 -1.64 -1.43 -1.28 0 2.57 1.96 1.64 1.43 1.28, angle(70) labsize(small))
             ytitle("") xtitle("z")
             legend(order(1 2 4 6 8 10))||
 
-            function z128n = normalden(x), range(-4 -1.28) recast(area) legend(label(2 "20%")) color(pink) ||
-            function z128 = normalden(x), range(1.28 4) recast(area) legend(label(3 "20%")) color(pink) ||
+            function z128n = normalden(x), range(-4 -1.28) recast(area) legend(label(2 "20%")) color(green%10) ||
+            function z128 = normalden(x), range(1.28 4) recast(area) legend(label(3 "20%")) color(green%10) ||
 
-            function z143n = normalden(x), range(-4 -1.43) recast(area) legend(label(4 "15%")) color(blue)||
-            function z143 = normalden(x), range(1.43 4) recast(area) legend(label(5 "15%")) color(blue)||
+            function z143n = normalden(x), range(-4 -1.43) recast(area) legend(label(4 "15%")) color(green%30)||
+            function z143 = normalden(x), range(1.43 4) recast(area) legend(label(5 "15%")) color(green%30)||
 
-            function z164n = normalden(x), range(-4 -1.64) recast(area) legend(label(6 "10%")) color(black)||
-            function z164 = normalden(x), range(1.64 4) recast(area) legend(label(7 "10%")) color(black)||
+            function z164n = normalden(x), range(-4 -1.64) recast(area) legend(label(6 "10%")) color(green%50)||
+            function z164 = normalden(x), range(1.64 4) recast(area) legend(label(7 "10%")) color(green%50)||
 
-            function z196n = normalden(x), range(-4 -1.96) recast(area) legend(label(8 "5%")) color(yellow)||
-            function z196 = normalden(x), range(1.96 4) recast(area) legend(label(9 "5%")) color(yellow)||
+            function z196n = normalden(x), range(-4 -1.96) recast(area) legend(label(8 "5%")) color(green%70)||
+            function z196 = normalden(x), range(1.96 4) recast(area) legend(label(9 "5%")) color(green%70)||
 
-            function z257n = normalden(x), range(-4 -2.57) recast(area) legend(label(10 "1%")) color(orange) ||
-            function z257 = normalden(x), range(2.57 4) recast(area) legend(label(11 "1%")) color(orange)
+            function z257n = normalden(x), range(-4 -2.57) recast(area) legend(label(10 "1%")) color(green%100) ||
+            function z257 = normalden(x), range(2.57 4) recast(area) legend(label(11 "1%")) color(green%100)
         ;
+
+********************************************************************;
+** #20 ** INFERENCE T-DISTRIBUTION;
+********************************************************************;
+
+# delimit ;
+    twoway function t = tden(60,x), range(-4 4) color(orange)
+            xlabel(-2.57 -1.96 -1.64 -1.43 -1.28 0 2.57 1.96 1.64 1.43 1.28, angle(70) labsize(small))
+            ytitle("") xtitle("z")
+            legend(order(1 2 4 6 8 10))||
+    
+            function t128n = tden(60,x), range(-4 -1.28) recast(area) legend(label(2 "20%")) color(orange%10) ||
+            function t128  = tden(60,x), range(1.28 4) recast(area) legend(label(3 "20%")) color(orange%10) ||
+
+            function t143n = tden(60,x), range(-4 -1.43) recast(area) legend(label(4 "15%")) color(orange%30)||
+            function t143  = tden(60,x), range(1.43 4) recast(area) legend(label(5 "15%")) color(orange%30)||
+
+            function t164n = tden(60,x), range(-4 -1.64) recast(area) legend(label(6 "10%")) color(orange%50)||
+            function t164  = tden(60,x), range(1.64 4) recast(area) legend(label(7 "10%")) color(orange%50)||
+
+            function t196n = tden(60,x), range(-4 -1.96) recast(area) legend(label(8 "5%")) color(orange%70)||
+            function t196 = tden(60,x), range(1.96 4) recast(area) legend(label(9 "5%")) color(orange%70)||
+
+            function t257n = tden(60,x), range(-4 -2.57) recast(area) legend(label(10 "1%")) color(orange%100) ||
+            function t257 = tden(60,x), range(2.57 4) recast(area) legend(label(11 "1%")) color(orange%100)
+    ;
 
 sss
 ********************************************************************;
