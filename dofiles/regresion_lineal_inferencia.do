@@ -51,7 +51,7 @@
 # delimit ;
     twoway function t = tden(60,x), range(-4 4) color(orange)
             xlabel(-2.57 -1.96 -1.64 -1.43 -1.28 0 2.57 1.96 1.64 1.43 1.28, angle(70) labsize(small))
-            ytitle("") xtitle("z")
+            ytitle("") xtitle("t")
             legend(order(1 2 4 6 8 10))||
     
             function t128n = tden(60,x), range(-4 -1.28) recast(area) legend(label(2 "20%")) color(orange%10) ||
@@ -130,6 +130,8 @@ sss
     lincom 2.x1 - 3.x1 /*TEST IF 2 MINUS 3 ARE ZERO*/
 
     /*EXAMPLE AUTO DATASET CONT.*/;
+    sysuse auto, clear
+    reg price mpg weight
     test (mpg = 0) (weight = 0)
 
     local fc95 = invFtail(e(df_m),e(N)-e(df_m),0.05)
@@ -140,6 +142,20 @@ sss
     local f_k = f_k
 
     twoway (function y = Fden(e(df_m),e(N)-e(df_m),x), range(0 20) xline(`fc95' `f_k') xlabel(#3 `fc95' `f_k', format(%9.2f))) (function y = Fden(e(df_m),e(N)-e(df_m),x), range(`fc95' 20) recast(area) color(dknavy))
+
+    /*UNRESTRICTED*/
+    reg price mpg weight
+        scalar ssr_u = e(rss)
+        scalar m_r = e(df_m)
+        scalar n_u = e(N) - (1 + e(df_m))
+
+    /*RESTRICTED*/
+    reg price 
+        scalar ssr_r = e(rss)
+        scalar n_r = e(N)
+
+    scalar f_r_u = ((ssr_r - ssr_u)/m_r)/(ssr_u/n_u)
+    display f_r_u
 
     test (mpg = -50) (weight = 0)
     test (mpg = -50) (weight = 2)
