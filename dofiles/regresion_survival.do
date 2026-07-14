@@ -25,7 +25,7 @@
 
 ** #10.1 ** EXECUTE DATA IN;
 
-    use http://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202110_old.dta;
+    use http://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202ymm_old.dta;
 
 ********************************************************************;
 ** #20 ** DATA VISUALIZATION;
@@ -85,13 +85,13 @@
     stcox edad;
     stcox edad, nohr;
 
-    stcox edad;
+    stcox i.genero_num edad;
     stcox i.genero_num edad, nohr;
         margins i.genero_num , at(edad=(18(1)24));
-        marginsplot, noci name(hr_genero_cox);
+        marginsplot, noci legend(pos(12)) name(hr_genero_cox);
         margins , dydx(i.genero_num) at(edad=(18(1)24));
         marginsplot, noci name(dydxgenero_cox);
-        graph combine hr_genero_cox dydxgenero_cox, cols(2) xsize(11) name(cox);
+        graph combine hr_genero_cox dydxgenero_cox, cols(1) xsize(5) name(cox, replace);
 
 *** #40.2 ** LOG REGRESSION;
 
@@ -100,7 +100,7 @@
     reg relacion_sent_ln edad;
     reg relacion_sent_ln i.genero_num edad;
         margins i.genero_num , at(edad=(18(1)24)) expression(exp(predict(xb)));
-        marginsplot, noci name(t_genero_ln);
+        marginsplot, noci legend(pos(12)) name(t_genero_ln, replace);
         margins , dydx(i.genero_num) at(edad=(18(1)24)) expression(exp(predict(xb)));
         marginsplot, noci name(dydxgenero_ln);
-        graph combine t_genero_ln dydxgenero_ln, cols(2) xsize(11) name(ln);
+        graph combine t_genero_ln dydxgenero_ln, cols(1) xsize(5) name(ln, replace);
