@@ -15,6 +15,7 @@
 *********************************************************************;
 
     display mdy(1,1,1960); /*Enero 1 de 1960*/;
+    display mdy(12,31,1959); /*Enero 1 de 1960*/;
     display hms(0,0,1); /*1 segundo = 1 milisegundo*/;
     display mdyhms(1,1,1960,0,0,1); /*Segundo 1 de Enero 1 de 1960*/;
     display mdyhms(1,1,1960,12,0,0); /*Hora 12 de Enero 1 de 1960*/;
@@ -26,39 +27,29 @@
 *********************************************************************;
 
     /*DEFINIR VARIABLE DE TIEMPO*/;
-    set obs 100;
-    generate time=_n;
+        set obs 366;
+        generate time = _n - 1;
+        format %td time:
         tsset time;
 
-    /*DEFINIR VARIABLE DE TIEMPO INICIANDO CON FECHA MENSUAL*/;
-    generate date_num = monthly(date,"YM");
-        format %tm date_num;
-        tsset time;
-
-        /*EXTRAER VARIABLE DE TIEMPO*/;
-        /*GENERAR VARIABLE FECHA DE REFERENCIA*/;
-        /*A PARTIR DE ESTA FECHA SE DEFINE EL RESTO DE VARIABLES DE TIEMPO*/;
-        generate date_date = dofm(date_num);
-            format %d date_date;
-
-        generate ss = ss(date_date);
-            /*generate ss = ss(dofm(date_num))*/;
-        generate mm = mm(date_date);
-            /*generate mm = mm(dofm(date_num))*/;
-        generate hh = hh(date_date);
-            /*generate hh = hh(dofm(date_num))*/;
-        generate day = day(date_date);
-            /*generate day = day(dofm(date_num))*/;
-        generate week = week(date_date);
-            /*generate week = week(dofm(date_num))*/;
-        generate month = month(date_date);
-            /*generate month = month(dofm(date_num))*/;
-        generate quarter = quarter(date_date);
-            /*generate quarter = quarter(dofm(date_num))*/;
-        generate semester = halfyear(date_date);
-            /*generate semester = halfyear(dofm(date_num))*/;
-        generate year = year(date_date);
-            /*generate year = year(dofm(date_num))*/;
+        generate time_ss = ss(time);
+            /*generate time_ss = ss(dofm(time))*/;
+        generate time_mm = mm(time);
+            /*generate time_mm = mm(dofm(time))*/;
+        generate time_hh = hh(time);
+            /*generate time_hh = hh(dofm(time))*/;
+        generate time_day = day(time);
+            /*generate time_day = day(dofm(time))*/;
+        generate time_week = week(time);
+            /*generate time_week = week(dofm(time))*/;
+        generate time_month = month(time);
+            /*generate time_month = month(dofm(time))*/;
+        generate time_quarter = quarter(time);
+            /*generate time_quarter = quarter(dofm(time))*/;
+        generate time_semester = halfyear(time);
+            /*generate time_semester = halfyear(dofm(time))*/;
+        generate time_year = year(time);
+            /*generate time_year = year(dofm(time))*/;
 
     /*DEFINIR VARIABLE DE TIEMPO DE VARIABLES SEPARADAS*/;
     gen date = yh(year,semester);
