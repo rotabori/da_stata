@@ -79,8 +79,8 @@
         generate y_f1 = f.y;
         generate y_f2 = f2.y;
         generate y_d1 = d.y;
-        generate y_g12 = (y - l12.y) / l12.y;
+        generate y_g12 = (y - l7.y) / l7.y;
 
     /*GRAPH TIME WITHIN*/;
         tsline y;
-        tsline y if tin(1990m1,1995m12);
+        tsline y if tin(1jan1960,25jan1960);
