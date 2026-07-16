@@ -52,25 +52,27 @@
             /*generate time_year = year(dofm(time))*/;
 
     /*DEFINIR VARIABLE DE TIEMPO DE VARIABLES SEPARADAS*/;
-    gen date = yh(year,semester);
-        format date %th;
+    gen date_semester = yh(time_year,time_semester);
+        format date_semester %th;
 
-    gen date = yq(year,quarter);
-        format date %tq;
+    gen date_quarter = yq(time_year,time_quarter);
+        format date_quarter %tq;
 
-    gen date = ym(year,month);
-        format date %tm;
+    gen date_month = ym(time_year,time_month);
+        format date_month %tm;
 
-    gen date = yw(year,week);
-        format date %tw;
+    gen date_week = yw(time_year,time_week);
+        format date_week %tw;
 
-    gen date_mdy = mdy(month,day,year);
-        format date %td;
+    gen date_mdy = mdy(time_month,time_day,time_year);
+        format date_mdy %td;
 
-    gen date_mdyhms = mdyhms(month,day,year,hh,mm,ss);
-        format date %tc;
+    gen date_mdyhms = mdyhms(time_month,time_day,time_year,time_hh,time_mm,time_ss);
+        format date_mdyhms %tc;
 
     /*LAG, FORWARD, DIFFERENCE*/;
+
+        gen y = rnormal(0,1)*100;
 
         generate y_l1 = l.y;
         generate y_l2 = l2.y;
