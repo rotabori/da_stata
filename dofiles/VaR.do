@@ -78,7 +78,7 @@
         onestep
         winitial(identity)
         vce(robust);
-qqq    
+
     /*VaR 1 day - day*/;
     nlcom (var95: (_b[mean_gmm:_cons] + sqrt(_b[var_gmm:_cons])*invnormal(0.05))*sqrt(1))
           (var97: (_b[mean_gmm:_cons] + sqrt(_b[var_gmm:_cons])*invnormal(0.03))*sqrt(1))

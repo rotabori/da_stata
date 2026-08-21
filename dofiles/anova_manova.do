@@ -55,19 +55,24 @@
         xline(`treatment_1')
         ;
 
-    /*EXAMPLE GENDER - HEIGHT UANDES STUDENTS*/;
+    /****************************************/
+    /****************************************/
+    /*EXAMPLE GENDER - HEIGHT UANDES STUDENTS*/
 
     #delimit ;
-    use https://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202yxx_old.dta, clear;
+    use https://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_20xxxx_old.dta, clear;
 
     tabulate genero_num;
 *    table genero_num, contents(mean estatura sd estatura n estatura min estatura max estatura) format(%4.2f);
     table genero_num, stat(count estatura) stat(mean estatura) stat(sd estatura) stat(min estatura) stat(max estatura) nformat(%5.2f);
-    graph box estatura, over(genero_num);
-    graph bar (mean) estatura, over(genero_num);
+    graph box estatura, over(genero_num) name(a, replace);
+    graph bar (mean) estatura, over(genero_num) name(b, replace);
 
     histogram estatura;
     kdensity estatura;
+
+    twoway (histogram estatura if genero_num == 0, color(blue%50) percent) (histogram estatura if genero_num == 1, color(red%50) percent), legend(order(1 "Hombre" 2 "Mujer") rows(1) position(6)) name(c, replace);
+    twoway (kdensity estatura if genero_num == 0)(kdensity estatura if genero_num == 1), legend(order(1 "Hombre" 2 "Mujer") rows(1) position(6)) name(d, replace);
 
     sum estatura if genero_num == 0;
         local estatura_0: di%3.2f = r(mean);
@@ -83,6 +88,7 @@
         xline(`estatura', lcolor(red))
         xline(`estatura_0', lcolor(blue))
         xline(`estatura_1', lcolor(black))
+        name(e, replace)
         ;
     *kdensity estatura, lcolor(red) addplot(kdensity estatura if genero_num == 0, lcolor(blue) || kdensity estatura if genero_num == 1, lcolor(black)) legend(row(1) label(1 "Total") label(2 "Hombres") label(3 "Mujeres") position(6)) xline(`estatura', lcolor(red)) xline(`estatura_0', lcolor(blue)) xline(`estatura_1', lcolor(black))
 
@@ -90,9 +96,49 @@
     /*PLOTS CONTINUOUS DENSITY OF HIGH FOR ALL, FEMALE AND MALE STUDENTS*/;
     /*STILL USEFUL IF YOU WANT TO SEE THE DISTRIBUTION OF A VARIABLE AMONG TWO CHARACTERISTICS OR TREATMENTS*/;
 
+    /****************************************/
+    /****************************************/
+    /*EXAMPLE GENDER - ICFES UANDES STUDENTS*/
+
+    #delimit ;
+    use https://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_20xxxx_old.dta, clear;
+
+    tabulate genero_num;
+*    table genero_num, contents(mean icfes sd icfes n icfes min icfes max icfes) format(%4.2f);
+    table genero_num, stat(count icfes) stat(mean icfes) stat(sd icfes) stat(min icfes) stat(max icfes) nformat(%5.2f);
+    graph box icfes, over(genero_num);
+    graph bar (mean) icfes, over(genero_num);
+
+    histogram icfes;
+    kdensity icfes;
+
+    sum icfes if genero_num == 0;
+        local icfes_0: di%3.2f = r(mean);
+
+    sum icfes if genero_num == 1;
+        local icfes_1: di%3.2f = r(mean);
+
+    sum icfes;
+        local icfes: di%3.2f = r(mean);
+
+    kdensity icfes, lcolor(red) addplot(kdensity icfes if genero_num == 0, lcolor(blue) || kdensity icfes if genero_num == 1, lcolor(black))
+        legend(row(1) label(1 "Total") label(2 "Hombres") label(3 "Mujeres") position(6))
+        xline(`icfes', lcolor(red))
+        xline(`icfes_0', lcolor(blue))
+        xline(`icfes_1', lcolor(black))
+        ;
+    *kdensity icfes, lcolor(red) addplot(kdensity icfes if genero_num == 0, lcolor(blue) || kdensity icfes if genero_num == 1, lcolor(black)) legend(row(1) label(1 "Total") label(2 "Hombres") label(3 "Mujeres") position(6)) xline(`icfes', lcolor(red)) xline(`icfes_0', lcolor(blue)) xline(`icfes_1', lcolor(black))
+
+
+
+
+
+
 ********************************************************************;
 ** #30 ** T-TEST MEAN;
 ********************************************************************;
+
+    mean outcome;
 
     ttest outcome, by(treatment);
 

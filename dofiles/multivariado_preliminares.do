@@ -267,6 +267,7 @@
     keep estatura genero_num
         tabstat estatura, statistics(mean sd n) by(genero_num)
         histogram estatura, title(Estatura) name(pop_hist, replace)
+        twoway (histogram estatura if genero_num == 0, color(blue%50) percent) (histogram estatura if genero_num == 1, color(red%50) percent), legend(order(1 "Hombre" 2 "Mujer"))
         twoway (kdensity estatura if genero_num == 0)(kdensity estatura if genero_num == 1), name(pop_kd, replace)
 
     tempvar sortorder

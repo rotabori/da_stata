@@ -25,7 +25,7 @@
 
 ** #10.1 ** EXECUTE DATA IN;
 
-    use https://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202010_old.dta;
+    use https://rodrigotaborda.com/ad/data/ee/encuesta_estudiantes_202ymm_old.dta;
 
 ********************************************************************;
 ** #20 ** DATA VISUALIZATION;
