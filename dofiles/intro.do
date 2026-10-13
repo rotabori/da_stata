@@ -2,31 +2,49 @@
 ** PROGRAM: intro.do
 ** PROGRAM TASK: PRELIMINARY BASIC STATA COMMANDS
 ** AUTHOR: RODRIGO TABORDA
-** DATE CREATEC: 2017/08/17
+** DATE CREATED: 2017/08/17
 ** DATE REVISION 1: 2020/04/07
+** DATE REVISION 2: 2026/10/13
 ** DATE REVISION #:
 
 ********************************************************************;
-** #0
+** #0 ** PROGRAM SETUP;
 ********************************************************************;
 
-** PROGRAM SETUP
+** #0.1 ** DELIMITER;
 
     pause on
+    /*COMMANDS END ONLY WHEN A SEMICOLON IS FOUND*/
     #delimit ;
-        /*COMMAND LINES WILL ONLY END ONCE SEMICOLON IS FOUND*/
 
-** #0.1 ** SET PATH FOR READING/SAVING DATA;
+** #0.2 ** SET PATH FOR READING/SAVING DATA;
+
+    /*SET WORKING FOLDER*/
+    cd <SOMEWHERE IN YOUR COMPUTER>;
+
+    /*GO UP TWO FOLDERS*/
+    cd ../../;
 
 ********************************************************************;
-** #10 ** EXECUTE DATA-IN ROUTINE;
+** #10 ** DATA-IN ROUTINE;
 ********************************************************************;
 
-    sysuse filename.dta; /*USE A STATA READY FILE STORED WITHIN STATA*/
+** #10.1 ** DATA STORED WITHIN STATA;
 
-    use filename.dta; /*USE A STATA READY FILE STORED SOMEWHERE*/
+    /*OPEN EXAMPLE DATA SHIPPED WITH STATA*/
+    sysuse auto.dta, clear;
 
-    import delimited data/covid19_world_`date'.txt /*USE A STATA READY FILE STORED SOMEWHERE*/
+** #10.2 ** STATA FILE (.dta);
+
+    /*OPEN A .dta FILE*/
+    use filename.dta, clear;
+
+** #10.3 ** TEXT FILE (.txt / .csv);
+
+    /*OPEN A TEXT FILE*/
+    /*delimiter(comma): COLUMNS SEPARATED BY COMMA*/
+    /*encoding(utf8): KEEPS SPANISH CHARACTERS*/
+    import delimited data/covid19_world_`date'.txt
         ,
         delimiter(comma)
         encoding(utf8)
@@ -34,104 +52,170 @@
         ;
 
 ********************************************************************;
-** #20 ** RANDOM USEFUL COMMANDS TO BEGIN;
+** #20 ** EXAMINE YOUR DATA;
 ********************************************************************;
 
-** #20.1 ** FILES;
+** #20.1 ** SPREADSHEET VIEW;
 
-    cd ../../;
-    cd <SOMEWHERE IN YOUR COMPUTER>;
-        /*CHANGE DIRECTORY OR WHERE STUFF IS STORED*/
+    /*VIEW DATA AS A SPREADSHEET*/
+    browse;
 
-** #20.2 ** EXAMINE / TIDY UP YOUR DATA;
+    /*EDIT DATA AS A SPREADSHEET (AVOID IT)*/
+    edit;
 
-    browse; /*EXPLORE YOUR DATA AS A SPREAD SHEET*/
+** #20.2 ** STRUCTURE AND CONTENT;
 
-    edit;   /*EDIT YOUR DATA AS A SPREAD SHEET*/
-            /*WARNING: DO NOT CHANGE YOUR DATA USING STATA AS A SPREAD SHEET*/
+    /*VARIABLES, TYPES AND LABELS*/
+    describe;
 
-    describe;   /*SHOWS HOW DATA IS BEING HANDLED BY STATA*/
+    /*LIST ALL VALUES OF var1*/
+    list var1;
 
-    list var1;   /*REQUEST var1 DATA TO BE LISTED IN THE OUTPUT WINDOW*/
+    /*LIST OBSERVATIONS 1 TO 10*/
+    list var1 in 1/10;
 
-    list var1 in 1/10;  /*REQUEST YOUR DATA TO BE LISTED IN THE OUTPUT WINDOW*/
-                        /*THIS TIME ONLY SHOW OBSERVATIOS 1 TO 10*/
+********************************************************************;
+** #30 ** TIDY UP YOUR DATA;
+********************************************************************;
 
-    rename var1 new_var1;  /*RENAME VARIABLE var1 TO sales*/
+** #30.1 ** NAMES AND LABELS;
 
-    label variable var1 "variable label";   /*ATTACH LABEL TO YOUR VARIABLE*/
+    /*RENAME var1 AS new_var1*/
+    rename var1 new_var1;
 
-    drop var1;  /*DELETES var1 AND KEEPS THE REST*/
+    /*ATTACH A LABEL*/
+    label variable new_var1 "variable label";
 
-    keep var1;  /*KEEPS var1 AND DELETES THE REST*/
+** #30.2 ** DROP / KEEP;
 
-    generate var10 = var1 + var2;   /*ADDS var1 AND var2 INTO var10*/
+    /*DELETE var1, KEEP THE REST*/
+    drop var1;
 
-    generate var1_sq = var1^2;  /*var1 SQUARED*/
-                                /*I SUGGEST YOU NAME VARIABLES KEEPING SOME SORT OF PREFIX SO THEY CAN BE EASILY SORTED, MANIPULATED AND IDENTIFIED*/
+    /*KEEP var1, DELETE THE REST*/
+    keep var1;
 
-    generate var1_ln = ln(var1);    /*var1 NATURAL LOG*/
-                                    /*I SUGGEST YOU NAME VARIABLES KEEPING SOME SORT OF PREFIX SO THEY CAN BE EASILY SORTED, MANIPULATED AND IDENTIFIED*/
+** #30.3 ** NEW VARIABLES;
 
-** #20.3 ** EXPLORE YOUR DATA;
+    /*TIP: USE PREFIXES / SUFFIXES SO VARIABLES SORT AND GROUP EASILY*/
 
-    summarize var1 var2 ... var#;   /*BASIC DESCRIPTIVE STATISTICS*/
-    summarize var1 var2 ... var#, detail;   /*DETAILED DESCRIPTIVE STATISTICS*/
-    summarize var1 var2 ... var# if var1 == condition, detail;   /*DETAILED DESCRIPTIVE STATISTICS IF var1 MEETS A CONDITON*/
+    /*SUM OF var1 AND var2*/
+    generate var10 = var1 + var2;
 
-    tabulate var1 /*FREQUENCY TABLE*/
+    /*var1 SQUARED*/
+    generate var1_sq = var1^2;
 
-    histogram var1; /*var1 HISTOGRAM*/
-    histogram var1, title(Add a title); /*var1 HISTOGRAM + TITLE*/
+    /*var1 NATURAL LOG*/
+    generate var1_ln = ln(var1);
 
-    twoway scatter var1 var2;   /*var1 (Y AXIS) var2 (X AXIS) SCATTER PLOT*/
-    twoway scatter var1 var2, ylabel(0(10)100);     /*var1 (Y AXIS) var2 (X AXIS) SCATTER PLOT* + Y AXIS BEGINS AT 0, ENDS AT 100 AND LABELS EVERY 10*/
-    twoway scatter var1 var2, ylabel(0(10)100) xlabel(0(10)100);    /*var1 (Y AXIS) var2 (X AXIS) SCATTER PLOT* + Y AND X AXIS BEGIN AT 0, ENDS AT 100 AND LABELS EVERY 10*/
+********************************************************************;
+** #40 ** EXPLORE YOUR DATA;
+********************************************************************;
+
+** #40.1 ** DESCRIPTIVE STATISTICS;
+
+    /*BASIC STATISTICS*/
+    summarize var1 var2;
+
+    /*DETAILED STATISTICS*/
+    summarize var1 var2, detail;
+
+    /*ONLY IF CONDITION HOLDS*/
+    summarize var1 var2 if var_cat == 1, detail;
+
+** #40.2 ** FREQUENCY TABLES;
+
+    /*FREQUENCY TABLE*/
+    tabulate var_cat;
+
+** #40.3 ** HISTOGRAM;
+
+    /*HISTOGRAM*/
+    histogram var1;
+
+    /*HISTOGRAM + TITLE*/
+    histogram var1, title(Add a title);
+
+** #40.4 ** SCATTER PLOT;
+
+    /*Y = var1, X = var2*/
+    twoway scatter var1 var2;
+
+    /*Y AXIS 0 TO 100, EVERY 10*/
+    twoway scatter var1 var2, ylabel(0(10)100);
+
+    /*BOTH AXES 0 TO 100*/
+    twoway scatter var1 var2, ylabel(0(10)100) xlabel(0(10)100);
+
+    /*AXES + TITLE; ONE COMMAND ON SEVERAL LINES*/
     twoway scatter var1 var2,
         ylabel(0(10)100) xlabel(0(10)100)
         title(Add a title)
         ;
-        /*var1 (Y AXIS) var2 (X AXIS) SCATTER PLOT + Y AND X AXIS BEGIN AT 0, ENDS AT 100 AND LABELS EVERY 10 + */
-        /*NOTE WE ARE USING SEVERAL LINES THE COMMAND WILL ONLY END ONCE SEMI-COLON IS FOUND*/
+
+    /*ONE SCATTER FOR EACH CATEGORY OF var_cat*/
     twoway scatter var1 var2,
         ylabel(0(10)100) xlabel(0(10)100)
         title(Add a title)
         by(var_cat)
         ;
-        /*var1 (Y AXIS) var2 (X AXIS) SCATTER PLOT + Y AND X AXIS BEGIN AT 0, ENDS AT 100 AND LABELS EVERY 10 + */
-        /*WILL PRODUCE A SCATTER FOR EACH VALUE IN THE CATHEGORICAL VARIABLE var_cat*/
-        /*NOTE WE ARE USING SEVERAL LINES THE COMMAND WILL ONLY END ONCE SEMI-COLON IS FOUND*/
 
-** #20.4 ** STATA AS A CALCULATOR;
+********************************************************************;
+** #50 ** STATA AS A CALCULATOR;
+********************************************************************;
 
-    display 1 + 1;  /*REQUEST STATA DISPLAY SOMETHING*/
-    display "La suma de 1 + 1 es: " 1 + 1;  /*REQUEST STATA DISPLAY SOMETHING*/
+** #50.1 ** DISPLAY;
 
-    scalar a = 1;    /*STORE IN a THE NUMBER 1*/
-    scalar b = 1;    /*STORE IN b THE NUMBER 1*/
+    /*SHOW A RESULT*/
+    display 1 + 1;
 
-    display "La suma de a + b es: " a + b ;  /*REQUEST STATA DISPLAY SOMETHING*/
+    /*SHOW TEXT + RESULT*/
+    display "La suma de 1 + 1 es: " 1 + 1;
 
-** #20.5 ** MISSING VALUES;
+** #50.2 ** SCALARS;
 
-    /*MISSING VALUES: CODING FOR NO DATA*/;
-    /*STATA USES A DOT (.)*/;
+    /*STORE 1 IN a*/
+    scalar a = 1;
 
+    /*STORE 1 IN b*/
+    scalar b = 1;
+
+    /*USE STORED VALUES*/
+    display "La suma de a + b es: " a + b;
+
+********************************************************************;
+** #60 ** MISSING VALUES;
+********************************************************************;
+
+** #60.1 ** CODING MISSING VALUES;
+
+    /*STATA CODES MISSING VALUES WITH A DOT (.); ALSO .a .b ...*/
+
+    /*MISSING (.) TO 99*/
     mvencode _all, mv(99);
-        /*MISSING TO A NUMBER*/
 
+    /*99 BACK TO MISSING (.)*/
     mvdecode _all, mv(99 = .);
-        /*THERE CAN BE SEVERAL MISSIN VALUES CODES: .a .b*/
 
-** #20.6 ** RECODE VALUES;
+********************************************************************;
+** #70 ** RECODE AND VALUE LABELS;
+********************************************************************;
 
-    recode var1 (0=1) (1=0)
+** #70.1 ** RECODE;
 
-** #20.7 ** LABELS;
-    label variable var1 "nueva variable"
-    label define www 0 "fff" 1 "ggg"
-    label values var1 www
+    /*SWAP 0 AND 1*/
+    recode var1 (0 = 1) (1 = 0);
 
-**** #90.9.9 ** GOOD BYE;
-*
+** #70.2 ** VALUE LABELS;
+
+    /*CREATE A VALUE LABEL*/
+    label define var1_lab 0 "no" 1 "si";
+
+    /*ATTACH IT TO var1*/
+    label values var1 var1_lab;
+
+********************************************************************;
+** #99 ** GOOD BYE;
+********************************************************************;
+
+    /*CLEAR DATA FROM MEMORY*/
 *    clear;
