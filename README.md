@@ -12,7 +12,7 @@ Cada archivo `.do` desarrolla un tema completo: carga los datos, aplica los coma
 
 Todo el código está en la carpeta [`dofiles/`](dofiles/). Haga clic en cada tema para ver sus archivos.
 
-<details open>
+<details>
 <summary><b>Introducción a Stata</b> (2 archivos)</summary>
 
 - [`intro`](dofiles/intro.do): comandos básicos para leer, examinar, organizar y explorar datos.
@@ -89,18 +89,16 @@ Todo el código está en la carpeta [`dofiles/`](dofiles/). Haga clic en cada te
 2. Abra el archivo `.do` del tema que le interesa en Stata.
 3. Ejecute el código por bloques, leyendo los comentarios.
 
-La mayoría de los archivos cargan los datos directamente desde internet (`rodrigotaborda.com`, *Principles of Econometrics*, Stata Press, UCLA), así que solo se necesita conexión. Algunos archivos usan bases locales que no están incluidas en el repositorio.
+La mayoría de los archivos cargan los datos directamente desde internet ([rodrigotaborda.com](https://rodrigotaborda.com)). Algunos archivos usan bases locales que no están incluidas en el repositorio, el profesor le dará indicaciones.
 
-Algunos temas usan comandos que no vienen con Stata por defecto (por ejemplo, `freduse`). Si un comando no se reconoce, instálelo con `ssc install nombre_del_comando`.
+Algunos temas usan comandos que no vienen con Stata por defecto (por ejemplo, `freduse`). Si un comando no se reconoce, instálelo con `ssc install nombre_del_comando`, el profesor le dará indicaciones.
 
 ## Créditos
 
 La mayor parte del código es de Rodrigo Taborda. Algunos archivos se basan en material de otros autores, indicado en el encabezado de cada uno:
 
 - `Sampling Distribution Stata Code.do` — John V. Kane (New York University).
-- `survival_hunger.do` — Brett Keller.
 - `datos_panel_poe.do` y `series_tiempo1.do` — ejemplos basados en *Principles of Econometrics* (Hill, Griffiths y Lim).
-- `mv.do` — en coautoría con Laura Pardo.
 
 ## Contacto
 
