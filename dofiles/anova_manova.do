@@ -71,7 +71,7 @@
     histogram estatura;
     kdensity estatura;
 
-    twoway (histogram estatura if genero_num == 0, color(blue%50) percent) (histogram estatura if genero_num == 1, color(red%50) percent), legend(order(1 "Hombre" 2 "Mujer") rows(1) position(6)) name(c, replace);
+    twoway (histogram estatura if genero_num == 0, width(3) color(blue%50) percent) (histogram estatura if genero_num == 1, width(3) color(red%50) percent), legend(order(1 "Hombre" 2 "Mujer") rows(1) position(6)) name(c, replace);
     twoway (kdensity estatura if genero_num == 0)(kdensity estatura if genero_num == 1), legend(order(1 "Hombre" 2 "Mujer") rows(1) position(6)) name(d, replace);
 
     sum estatura if genero_num == 0;
